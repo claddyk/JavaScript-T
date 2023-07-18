@@ -3,7 +3,7 @@ What is it?
 The HCX SDK(Software Development Kit) is a set of libraries, code samples, and documentation using which developers can create their own softweare applications that interact with the HCX platform.
 
 What is HCX?
-It is a platform designed to streamline and secure the exchange of healthcare data between payors, providers and patients.
+It is a platform designed to streamline and secure the exchange of claims data between payors, providers.
 Various operations such ass sending and receiving data, encryption and decryption of data, validation of payloads can be performed.
 
 ## HCX SDK Initialization
