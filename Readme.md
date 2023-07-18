@@ -10,7 +10,7 @@ Various operations such ass sending and receiving data, encryption and decryptio
 
 To begin working with the HCX SDK, we need to initialize the HCXIntegrator object with the configuration settings.
 
-```
+```javascript
 const config = {
   participantCode: "your-participant-code", // Unique identifier provided by HCX
   protocolBasePath: "protocol-base-path", // Base path of the HCX instance to access Protocol APIs
