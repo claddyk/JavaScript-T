@@ -33,9 +33,9 @@ The configuration object allows the SDK to handle authentication and data securi
 
 Outgoing methods in the HCX SDK will handle the preparation and dispatch of data to the HCX platform.
 
-`validatePayload`: This function validates the payload according to HCX specifications. It accepts a JWE (JSON Web Encryption) payload, an operation, and an error object. It returns a boolean to indicate if the payload validation passed.
+`validatePayload`: This function validates the payload according to HCX specifications. It accepts a FHIR payload, an operation, and an error object. It returns a boolean to indicate if the payload validation passed.
 ```javascript
-const jwePayload = "your-payload"; // JSON Web Encryption payload
+const fhirPayload = "your-payload"; // FHIR Payload(JSON Format)
 const operation = "your-operation"; // The operation to be performed
 const error = {}; // An object to capture any errors
 
@@ -46,10 +46,10 @@ const isValid = hcxIntegrator.validatePayload(jwePayload, operation, error);
 
 ```javascript
 const recipientCode = "recipient-code";
-const apiCallId = "api-call-id";
+const apiCallId = "api-call-id"(optional);
 const correlationId = "correlation-id";(optional)
 const actionJwe = "action-jwe";(optional)
-const onActionStatus = "on-action-status";
+const onActionStatus = "on-action-status"(optional);
 
 headers = hcxIntegrator.create_headers(senderCode, recipientCode, apiCallId, correlationId, actionJwe, onActionStatus);
 ```
