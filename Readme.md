@@ -29,7 +29,7 @@ const config = {
 
 The configuration object allows the SDK to handle authentication and data security protocols, ensuring communication with the HCX platform is secure.
 
-##Outgoing Methods
+## Outgoing Methods
 
 Outgoing methods in the HCX SDK will handle the preparation and dispatch of data to the HCX platform.
 
