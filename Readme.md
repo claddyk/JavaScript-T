@@ -11,7 +11,7 @@ Various operations such as sending and receiving data, encryption and decryption
 To begin working with the HCX SDK, we need to initialize the HCXIntegrator object with the configuration settings.
 
 ```javascript
-const config = {
+object config = {
   participantCode: "your-participant-code", // Unique identifier provided by HCX
   protocolBasePath: "protocol-base-path", // Base path of the HCX instance to access Protocol APIs
   authBasePath: "auth-base-path", // Base path for authentication
@@ -33,7 +33,8 @@ The configuration object allows the SDK to handle authentication and data securi
 
 Outgoing methods in the HCX SDK will handle the preparation and dispatch of data to the HCX platform.
 
-`validatePayload`: This function validates the payload according to HCX specifications. It accepts a FHIR payload, an operation, and an error object. It returns a boolean to indicate if the payload validation passed.
+### validatePayload
+This function validates the payload according to HCX specifications. It accepts a FHIR payload, an operation, and an error object. It returns a boolean to indicate if the payload validation passed.
 ```javascript
 const fhirPayload = "your-payload"; // FHIR Payload(JSON Format)
 const operation = "your-operation"; // The operation to be performed
@@ -42,7 +43,8 @@ const error = {}; // An object to capture any errors
 const isValid = hcxIntegrator.validatePayload(jwePayload, operation, error);
 ```
 
-`create_headers`: A method used to create the necessary headers for the payload. This varies based on the type of outgoing request call. We have 2 types of outgoing request. One is where directly create a new outgoing request.(Here we create action headers). In the other type of outgoing request, we generally respond to the outgoing request. (Here we will create `on_action` headers.) It requires `recipientCode` in `action call` and `recipientCode` along with `actionJwe` for the `on action call` parameters and returns an object that can be used as a header in your request.
+### create_header
+A method used to create the necessary headers for the payload. This varies based on the type of outgoing request call. We have 2 types of outgoing request. One is where directly create a new outgoing request.(Here we create action headers). In the other type of outgoing request, we generally respond to the outgoing request. (Here we will create `on_action` headers.) It requires `recipientCode` in `action call` and `recipientCode` along with `actionJwe` for the `on action call` parameters and returns an object that can be used as a header in your request.
 
 ```javascript
 const senderCode = "sender-code";(optional)
@@ -55,22 +57,25 @@ const onActionStatus = "on-action-status"(optional);
 headers = hcxIntegrator.create_headers(senderCode, recipientCode, apiCallId, correlationId, actionJwe, onActionStatus);
 ```
 
-`encrypt_payload`: Encrypts the FHIR payload using the recipient's public certificate.
+### encrypt_payload
+Encrypts the FHIR payload using the recipient's public certificate.
 ```javascript
 const fhirPayload = "fhir-payload"; // FHIR payload
 const encryptedPayload = hcxIntegrator.encrypt_payload(headers, fhirPayload); // Encrypted FHIR payload
 ```
-`searchRegistry`: It interacts with the HCX registry. You provide a search field and a search value, and it returns an object with the registry fields in it. It is used to find the public certificate from the registry.
+### searchRegistry
+It interacts with the HCX registry. You provide a search field and a search value, and it returns an object with the registry fields in it. It is used to find the public certificate from the registry.
 ```javascript
 const searchField = "search-field";
 const searchValue = "search-value";
 const registryResults = hcxIntegrator.searchRegistry(searchField, searchValue);
 ```
-`initializeHCXCall`: This function initiates an HCX API call. It generates a token, adds it to the call, and sends the request.
+### initializeHCXCall
+This function initiates an HCX API call. It generates a token, adds it to the call, and sends the request.
 ```javascript
 const response = hcxIntegrator.initializeHCXCall(encryptedPayload, operation);
 ```
-`Wrapper Classes`
+### Wrapper Classes
 - For action API request
 ```Javascript
 function(fhirPayload, operation, recipientCode) {
@@ -112,11 +117,13 @@ The output will be an `object` and will be
 
 Incoming methods handle incoming requests from the HCX platform.
 
-`validateRequest`: This function validates the incoming request as per the HCX protocol. It returns a boolean indicating whether the request is valid. The error handling can be found [here](https://docs.hcxprotocol.io/hcx-technical-specifications/open-protocol/key-components-building-blocks/error-descriptions)
+### validateRequest
+This function validates the incoming request as per the HCX protocol. It returns a boolean indicating whether the request is valid. The error handling can be found [here](https://docs.hcxprotocol.io/hcx-technical-specifications/open-protocol/key-components-building-blocks/error-descriptions)
 ```javascript
 const isValidRequest = hcxIntegrator.validateRequest(jwePayload, operation, error);
 ```
-`decryptPayload`: Decrypts the received payload.
+### decryptPayload
+Decrypts the received payload.
 ```javascript
 function decryptPayload(encryptedString) {
 returns Object
@@ -165,7 +172,8 @@ The responses looks like:
      }
 }
 ```
-`process`: Orchestrates the entire process of handling an 
+### process
+Orchestrates the entire process of handling an 
 - incoming request,
 - including validation,
 - decryption,
