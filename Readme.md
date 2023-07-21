@@ -1,4 +1,4 @@
-# HCX JavaScript SDK
+# JavaScript Integrator SDK
 What is it?
 The HCX SDK(Software Development Kit) is a set of libraries, code samples, and documentation using which developers can create their own softweare applications that interact with the HCX platform.
 
