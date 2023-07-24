@@ -33,7 +33,7 @@ The configuration object allows the SDK to handle authentication and data securi
 
 Outgoing methods in the HCX SDK will handle the preparation and dispatch of data to the HCX platform.
 
-### validatePayload
+### Validate FHIR object
 This function validates the payload according to HCX specifications. It accepts a FHIR payload, an operation, and an error object. It returns a boolean to indicate if the payload validation passed.
 ```javascript
 const fhirPayload = "your-payload"; // FHIR Payload(JSON Format)
@@ -43,7 +43,7 @@ const error = {}; // An object to capture any errors
 const isValid = hcxIntegrator.validatePayload(jwePayload, operation, error);
 ```
 
-### create_header
+### Create header for the payload.
 A method used to create the necessary headers for the payload. This varies based on the type of outgoing request call. We have 2 types of outgoing request. One is where directly create a new outgoing request.(Here we create action headers). In the other type of outgoing request, we generally respond to the outgoing request. (Here we will create `on_action` headers.) It requires `recipientCode` in `action call` and `recipientCode` along with `actionJwe` for the `on action call` parameters and returns an object that can be used as a header in your request.
 
 ```javascript
@@ -57,12 +57,15 @@ const onActionStatus = "on-action-status"(optional);
 headers = hcxIntegrator.create_headers(senderCode, recipientCode, apiCallId, correlationId, actionJwe, onActionStatus);
 ```
 
-### encrypt_payload
+### Encrypt the payload
 Encrypts the FHIR payload using the recipient's public certificate.
 ```javascript
 const fhirPayload = "fhir-payload"; // FHIR payload
 const encryptedPayload = hcxIntegrator.encrypt_payload(headers, fhirPayload); // Encrypted FHIR payload
 ```
+- If successful - return JWS object ({“payload”:”adsds”})
+- If failed - return map contains error codes and messages
+
 ### searchRegistry
 It interacts with the HCX registry. You provide a search field and a search value, and it returns an object with the registry fields in it. It is used to find the public certificate from the registry.
 ```javascript
@@ -70,8 +73,17 @@ const searchField = "search-field";
 const searchValue = "search-value";
 const registryResults = hcxIntegrator.searchRegistry(searchField, searchValue);
 ```
-### initializeHCXCall
-This function initiates an HCX API call. It generates a token, adds it to the call, and sends the request.
+### Initialize HCX call
+- Generate the token using the config and add to the call
+- Call the HCX API
+- Received response will be added to response as
+```javascript
+  {
+	“responseObj”:{
+		success/error response
+	}
+  }
+```
 ```javascript
 const response = hcxIntegrator.initializeHCXCall(encryptedPayload, operation);
 ```
