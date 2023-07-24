@@ -1,9 +1,9 @@
 # JavaScript Integrator SDK
 What is it?
-The HCX SDK(Software Development Kit) is a set of libraries, code samples, and documentation using which developers can create their own softweare applications that interact with the HCX platform.
+The HCX SDK(Software Development Kit) is a set of libraries, code samples, and documentation using which developers can create their own software applications that interact with the HCX platform.
 
 What is HCX?
-It is a platform designed to streamline and secure the exchange of claims data between payors, providers.
+It is a platform designed to streamline and secure the exchange of claims data between payors and providers.
 Various operations such as sending and receiving data, encryption and decryption of data, validation of payloads can be performed.
 
 ## HCX SDK Initialization
@@ -129,12 +129,12 @@ The output will be an `object` and will be
 
 Incoming methods handle incoming requests from the HCX platform.
 
-### validateRequest
+### Protocol validations
 This function validates the incoming request as per the HCX protocol. It returns a boolean indicating whether the request is valid. The error handling can be found [here](https://docs.hcxprotocol.io/hcx-technical-specifications/open-protocol/key-components-building-blocks/error-descriptions)
 ```javascript
 const isValidRequest = hcxIntegrator.validateRequest(jwePayload, operation, error);
 ```
-### decryptPayload
+### Decrypt Payload
 Decrypts the received payload.
 ```javascript
 function decryptPayload(encryptedString) {
@@ -149,10 +149,18 @@ The Object returned can be:
 	   “fhirPayload”: {}
 }
 ```
-`validatePayload`: Validates the decrypted payload. It is the same function used in the Outgoing Requests.
+- On failure
+```
+{
+	"error_code": "error_message"
+}
+```
+# Domain object Validation
+Validates the decrypted payload. It is the same function used in the Outgoing Requests.
 ```javascript
 const isValidPayload = hcxIntegrator.validatePayload(fhirPayload, operation, error);
 ```
+# Acknowledgment
 `sendResponse`: Sends the response back to the HCX gateway. This could be a success response if there were no errors or an error response.
 ```javascript
 const output = {}; // Output to send back
