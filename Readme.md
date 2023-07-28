@@ -227,4 +227,4 @@ class HcxOperations {
 Overall, the HCX SDK for JavaScript provides a powerful interface for working with the HCX platform, enabling developers to handle complex healthcare data exchanges with relative ease.
 The working of the HCX protocol, can be summarised in this diagram:
 
-![Summary](https://github.com/claddyk/JavaScript-T/blob/main/workflow.png)
+![Summary](https://github.com/claddyk/JavaScript-T/blob/main/workflow2.png)
