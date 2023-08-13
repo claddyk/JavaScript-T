@@ -54,14 +54,14 @@ const correlationId = "correlation-id";(optional)
 const actionJwe = "action-jwe";(used for on action calls)
 const onActionStatus = "on-action-status"(optional);
 
-headers = hcxIntegrator.create_headers(senderCode, recipientCode, apiCallId, correlationId, actionJwe, onActionStatus);
+headers = hcxIntegrator.createHeaders(senderCode, recipientCode, apiCallId, correlationId, actionJwe, onActionStatus);
 ```
 
 ### Encrypt the payload
 Encrypts the FHIR payload using the recipient's public certificate.
 ```javascript
 const fhirPayload = "fhir-payload"; // FHIR payload
-const encryptedPayload = hcxIntegrator.encrypt_payload(headers, fhirPayload); // Encrypted FHIR payload
+const encryptedPayload = hcxIntegrator.encryptPayload(headers, fhirPayload); // Encrypted FHIR payload
 ```
 - If successful - return JWS object ({“payload”:”adsds”})
 - If failed - return map contains error codes and messages
